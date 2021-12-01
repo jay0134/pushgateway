@@ -1,0 +1,10 @@
+# github.com/sirupsen/logrus v1.8.1
+## explicit; go 1.13
+github.com/sirupsen/logrus
+# github.com/toolkits/file v0.0.0-20160325033739-a5b3c5147e07
+## explicit
+github.com/toolkits/file
+# golang.org/x/sys v0.0.0-20191026070338-33540a1f6037
+## explicit; go 1.12
+golang.org/x/sys/unix
+golang.org/x/sys/windows
