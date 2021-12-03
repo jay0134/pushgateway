@@ -6,7 +6,6 @@ import (
 	"eagleeye-pushgateway/sender"
 	influx "github.com/influxdata/influxdb/client/v2"
 	"encoding/json"
-	"fmt"
 	"math"
 	"net/http"
 	"strconv"

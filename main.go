@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"flag"
+	"fmt"
 	"log"
 	"eagleeye-pushgateway/g"
 	"eagleeye-pushgateway/http"
@@ -9,6 +11,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func start_signal(pid int, cfg *g.GlobalConfig) {
@@ -19,6 +22,26 @@ func start_signal(pid int, cfg *g.GlobalConfig) {
 	for {
 		s := <-sigs
 		log.Println("recv", s)
+		//关闭http服务
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		http.Srv.Shutdown(ctx)
+		cancel()
+		// 判断缓存队列是否都已处理完毕
+		empty := true
+		for {
+			for node := range cfg.InfluxDB.Cluster {
+				queue := sender.InfluxQueues[node]
+				if queue.Len() != 0{
+					empty = false
+					break
+				}
+			}
+			if empty == true{
+				break
+			}else{
+				time.Sleep(1* time.Second)
+			}
+		}
 		os.Exit(0)
 	}
 }

@@ -12,7 +12,7 @@ type Dto struct {
 	Data interface{} `json:"data"`
 }
 
-
+var Srv *http.Server
 func RenderJson(w http.ResponseWriter, v interface{}) {
 	bs, err := json.Marshal(v)
 	if err != nil {
@@ -39,10 +39,9 @@ func Start() {
 	if addr == "" {
 		return
 	}
-	s := &http.Server{
+	Srv = &http.Server{
 		Addr:           addr,
 		MaxHeaderBytes: 1 << 30,
 	}
-	s.ListenAndServe()
-
+	go Srv.ListenAndServe()
 }
