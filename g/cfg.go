@@ -2,23 +2,31 @@ package g
 
 import (
 	"encoding/json"
+	"github.com/toolkits/file"
 	"log"
 	"sync/atomic"
 	"unsafe"
-	"github.com/toolkits/file"
 )
 
 type HttpConfig struct {
-	Address  string `json:"address"`
+	Listen  string `json:"listen"`
+}
+
+// CLUSTER NODE
+type ClusterNode struct {
+	Addrs []string `json:"addrs"`
 }
 
 type InfluxDBConfig struct {
-	Address   string `json:"address"`
-	DB        string `json:"db"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	Timeout   string `json:"timeout"`
-
+	DB          	string 					`json:"db"`
+	Username    	string 					`json:"username"`
+	Password   	 	string					`json:"password"`
+	Timeout     	string  				`json:"timeout"`
+	RetentionPolicy string 					`json:"retention-policy"`
+	Replicas   		int                     `json:"replicas"`
+	Batch       	int                     `json:"batch"`
+	Cluster     	map[string]string	    `json:"cluster"`
+	ClusterList 	map[string]*ClusterNode `json:"clusterList"`
 }
 
 
@@ -37,6 +45,9 @@ var (
 func Config() *GlobalConfig {
 	return (*GlobalConfig)(atomic.LoadPointer(&ptr))
 }
+
+
+
 
 func ParseConfig(cfg string) {
 	if cfg == "" {

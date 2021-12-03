@@ -1,13 +1,18 @@
 {
   "debug": true,
   "http": {
-    "address": "0.0.0.0:8433"
+    "listen": "0.0.0.0:8433"
   },
   "influxdb": {
-    "address": "http://127.0.0.1:8433",
     "db": "prometheus",
     "username": "root",
     "password": "123qwe",
-    "timeout": "5s"
+    "timeout": "5s",
+    "retention-policy": "autogen",
+    "replicas": 500,
+    "batch": 200,
+    "cluster": {
+      "node-01": "http://127.0.0.1:8086"
+    }
   }
 }

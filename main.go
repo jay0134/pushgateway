@@ -4,6 +4,8 @@ import (
 	"flag"
 	"log"
 	"eagleeye-pushgateway/g"
+	"eagleeye-pushgateway/http"
+	"eagleeye-pushgateway/sender"
 	"os"
 	"os/signal"
 	"syscall"
@@ -31,6 +33,7 @@ func main() {
 		g.InitLog("info")
 	}
 
-
+	sender.Start()
+	go http.Start()
 	start_signal(os.Getpid(), g.Config())
 }
