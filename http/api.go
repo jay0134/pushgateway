@@ -67,7 +67,7 @@ func RecvMetricValues(args []*cmodel.CustomMetricValue){
 
 		//计算该分配到哪个节点
 		//node: node-01
-		node, err := sender.InfluxNodeRing.GetNode(utils.PK(v.Metric, utils.DictedTagstring(v.Tags)))
+		node, err := sender.InfluxNodeRing.GetNode(v.Metric)
 		if err != nil {
 			log.Println("E:", err)
 			continue
