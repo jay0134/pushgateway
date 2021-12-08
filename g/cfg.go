@@ -26,7 +26,6 @@ type InfluxDBConfig struct {
 	Replicas   		int                     `json:"replicas"`
 	Batch       	int                     `json:"batch"`
 	Cluster     	map[string]string	    `json:"cluster"`
-	ClusterList 	map[string]*ClusterNode `json:"clusterList"`
 }
 
 

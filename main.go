@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 	"eagleeye-pushgateway/g"
 	"eagleeye-pushgateway/http"

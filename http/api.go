@@ -19,7 +19,7 @@ func api_push_datapoints(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 	decoder := json.NewDecoder(req.Body)
-	var metrics []*cmodel.MetricValue
+	var metrics []*cmodel.CustomMetricValue
 	err := decoder.Decode(&metrics)
 	if err != nil {
 		http.Error(rw, "decode error", http.StatusBadRequest)
@@ -29,18 +29,9 @@ func api_push_datapoints(rw http.ResponseWriter, req *http.Request) {
 	RenderDataJson(rw, nil)
 }
 
-func RecvMetricValues(args []*cmodel.MetricValue){
-	items := []*cmodel.MetaData{}
+func RecvMetricValues(args []*cmodel.CustomMetricValue){
 	for _ ,v := range args{
-		fv := &cmodel.MetaData{
-			Metric:     v.Metric,
-			Tags:       utils.DictedTagstring(v.Tags),
-			Timestamp:  time.Unix(v.Timestamp, 0),
-			Value: 		v.Value,
-		}
-		items = append(items, fv)
 
-		//
 		valid := true
 		var vv float64
 		var err error
