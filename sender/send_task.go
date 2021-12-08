@@ -46,11 +46,10 @@ func forward2InluxTask(Q *list.SafeListLimited, node string) {
 			RetentionPolicy: g.Config().InfluxDB.RetentionPolicy,
 		})
 		if err != nil {
-			return
 		}
 		bps.AddPoints(infuxItems)
 		if err := InfluxClientMap[node].client.Write(bps); err != nil{
-			return
+
 		}
 	}
 }
